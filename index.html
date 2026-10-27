@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CS.Exec() | CSE Quiz & Prep Portal</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Google Fonts for Developer Aesthetics -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="navbar">
+    <div class="logo">
+      <span class="terminal-prompt">&gt;_</span> CS.Exec<span class="accent">()</span>
+    </div>
+    <div class="nav-meta">
+      <span class="badge">CSE Portal v2.4</span>
+      <span id="streak-counter" class="badge streak-badge">🔥 Streak: 0</span>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- ==================== 1. DASHBOARD VIEW ==================== -->
+    <section id="dashboard-view" class="view active">
+      <div class="hero">
+        <h1>Computer Science & Engineering Quiz Portal</h1>
+        <p>Test your core fundamentals across DSA, Operating Systems, Compiler Design, C Pointers, AI, and Web Technologies.</p>
+      </div>
+
+      <!-- Quiz Configuration Bar -->
+      <div class="config-bar">
+        <div class="config-group">
+          <label for="difficulty-select">Difficulty:</label>
+          <select id="difficulty-select">
+            <option value="all">All Levels</option>
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
+          </select>
+        </div>
+
+        <div class="config-group">
+          <label for="count-select">Questions:</label>
+          <select id="count-select">
+            <option value="5">5 Questions</option>
+            <option value="10" selected>10 Questions</option>
+            <option value="15">15 Questions</option>
+          </select>
+        </div>
+
+        <button class="btn btn-primary" onclick="startQuiz('Mixed')">
+          ⚡ Start Mixed CSE Challenge
+        </button>
+      </div>
+
+      <!-- Subject Grid -->
+      <div id="subject-grid" class="subject-grid">
+        <!-- Populated dynamically via script.js -->
+      </div>
+    </section>
+
+    <!-- ==================== 2. QUIZ ENGINE VIEW ==================== -->
+    <section id="quiz-view" class="view">
+      <div class="quiz-header">
+        <button class="btn btn-ghost" onclick="returnToDashboard()">← Exit Quiz</button>
+        <div class="quiz-title-group">
+          <span id="quiz-subject-badge" class="badge">DSA</span>
+          <span id="quiz-difficulty-badge" class="badge">Medium</span>
+        </div>
+        <div class="timer-box">
+          ⏱️ <span id="timer-display">30</span>s
+        </div>
+      </div>
+
+      <!-- Progress Bar & Question Status Dots -->
+      <div class="progress-container">
+        <div id="progress-bar" class="progress-bar"></div>
+      </div>
+      <div id="question-dots" class="question-dots"></div>
+
+      <!-- Question Card -->
+      <div class="question-card">
+        <div class="question-meta">
+          <span id="question-counter">Question 1 of 10</span>
+          <button id="bookmark-btn" class="btn-icon" onclick="toggleBookmark()" title="Bookmark Question">
+            🔖 Flag
+          </button>
+        </div>
+
+        <h2 id="question-text">Loading question...</h2>
+
+        <!-- Optional Code Snippet Container -->
+        <div id="code-block-wrapper" class="code-wrapper hidden">
+          <div class="code-header">
+            <span>C / JS Snippet</span>
+            <button class="copy-btn" onclick="copyCodeSnippet()">Copy</button>
+          </div>
+          <pre><code id="question-code"></code></pre>
+        </div>
+
+        <!-- Options List -->
+        <div id="options-container" class="options-grid"></div>
+
+        <!-- Instant Technical Explanation Box -->
+        <div id="explanation-box" class="explanation-box hidden">
+          <h4>💡 Technical Explanation</h4>
+          <p id="explanation-text"></p>
+        </div>
+
+        <!-- Footer Controls -->
+        <div class="quiz-footer">
+          <span class="shortcut-hint">Shortcuts: Keys <b>1-4</b> or <b>A-D</b> to answer, <b>Enter</b> for Next</span>
+          <button id="next-btn" class="btn btn-primary hidden" onclick="nextQuestion()">
+            Next Question →
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 3. RESULTS & ANALYTICS VIEW ==================== -->
+    <section id="result-view" class="view">
+      <div class="result-card">
+        <div class="result-header">
+          <span id="rank-badge" class="rank-badge">🏅 Kernel Architect</span>
+          <h2>Assessment Complete!</h2>
+          <p id="result-subtitle">Here is your technical performance breakdown.</p>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-item">
+            <span class="stat-label">Final Score</span>
+            <span id="final-score" class="stat-value">0 / 0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Accuracy</span>
+            <span id="final-accuracy" class="stat-value">0%</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Avg. Time / Q</span>
+            <span id="final-time" class="stat-value">0s</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Bookmarked</span>
+            <span id="final-bookmarks" class="stat-value">0</span>
+          </div>
+        </div>
+
+        <div class="result-actions">
+          <button class="btn btn-primary" onclick="restartCurrentQuiz()">🔄 Retry Module</button>
+          <button class="btn btn-secondary" onclick="returnToDashboard()">🏠 Back to Dashboard</button>
+        </div>
+
+        <!-- Detailed Review Accordion -->
+        <div class="review-section">
+          <h3>📋 Detailed Answer Review</h3>
+          <div id="review-list" class="review-list"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
